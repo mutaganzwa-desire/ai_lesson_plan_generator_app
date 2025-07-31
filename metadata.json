@@ -1,0 +1,6 @@
+{
+  "name": "AI Lesson Plan Generator",
+  "description": "An application that uses AI to generate comprehensive and structured lesson plans for educators, helping them save time and create engaging learning experiences.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WiLan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>W</text></svg>">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.11.0"
+  }
+}
+</script>
+</head>
+<body class="bg-gray-100 dark:bg-black">
+    <div class="flex flex-col min-h-screen font-sans text-black dark:text-white">
+      <header class="bg-white dark:bg-black shadow-md border-b border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 py-4 md:px-8">
+            <h1 class="text-3xl font-serif font-bold text-black dark:text-white">
+              WiLan
+            </h1>
+        </div>
+      </header>
+      
+      <main class="flex-grow container mx-auto p-4 md:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4 xl:col-span-3">
+            <div class="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg sticky top-8">
+              <h2 class="text-xl font-bold mb-4 text-black dark:text-white">Create a New Plan</h2>
+              <form id="lesson-plan-form" class="space-y-6">
+                <div>
+                  <label for="topic" class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
+                    Topic
+                  </label>
+                  <input
+                    type="text"
+                    id="topic"
+                    name="topic"
+                    value="The Water Cycle"
+                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:ring-black focus:border-black text-black dark:text-white"
+                    placeholder="e.g., Photosynthesis"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="gradeLevel" class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
+                    Grade Level
+                  </label>
+                  <select
+                    id="gradeLevel"
+                    name="gradeLevel"
+                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:ring-black focus:border-black text-black dark:text-white"
+                    required
+                  >
+                  </select>
+                </div>
+                <div>
+                  <label for="duration" class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
+                    Duration
+                  </label>
+                  <input
+                    type="text"
+                    id="duration"
+                    name="duration"
+                    value="45 minutes"
+                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:ring-black focus:border-black text-black dark:text-white"
+                    placeholder="e.g., 45 minutes"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black dark:focus:ring-offset-black disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors"
+                >
+                  Generate Plan
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="lg:col-span-8 xl:col-span-9">
+            <div class="bg-white dark:bg-gray-900 p-6 md:p-8 rounded-2xl shadow-lg min-h-[600px] flex flex-col">
+              
+              <div id="spinner-container" class="hidden flex flex-col items-center justify-center h-full w-full flex-grow">
+                <svg class="animate-spin h-12 w-12 text-black dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <p class="mt-4 text-gray-500 dark:text-gray-400">Generating your lesson plan...</p>
+              </div>
+
+              <div id="error-container" class="hidden flex items-center justify-center h-full w-full flex-grow">
+                  <div class="bg-gray-100 dark:bg-neutral-900 border border-gray-300 dark:border-neutral-700 text-black dark:text-white px-4 py-3 rounded-lg relative max-w-lg text-center" role="alert">
+                      <strong class="font-bold block">An Error Occurred</strong>
+                      <span id="error-message" class="block sm:inline"></span>
+                  </div>
+              </div>
+              
+              <div id="welcome-container" class="hidden flex flex-col items-center justify-center h-full w-full flex-grow text-center">
+                <div class="text-5xl mb-4">W</div>
+                <h2 class="text-2xl font-bold text-black dark:text-white">Welcome to WiLan</h2>
+                <p class="mt-2 max-w-md text-gray-500 dark:text-gray-400">
+                  Fill out the form on the left to create a suitable lesson plan for any topic.
+                </p>
+              </div>
+
+              <div id="lesson-plan-container" class="hidden"></div>
+
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="bg-white dark:bg-black mt-8 py-4 shadow-inner">
+        <div class="container mx-auto px-4 md:px-8 text-center text-sm text-gray-500 dark:text-gray-400">
+          <p>
+            Designed by Mutaganzwa Desire - 2025
+          </p>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/index.js"></script>
+</body>
+</html>

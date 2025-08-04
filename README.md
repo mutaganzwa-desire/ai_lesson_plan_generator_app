@@ -11,6 +11,16 @@ The **AI Lesson Plan Generator** is a web-based tool designed to assist educator
 
 ---
 
+## 📹 Demo Video
+
+Curious to see how it works before trying it yourself?
+
+🎬 **Watch the full demo:**  
+[![Watch the Demo](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://youtu.be/uXghkcwItMk)
+
+> This video walks through how to generate a lesson plan, explains the AI logic, and showcases sample results.
+
+
 ## ⚙️ Features
 
 - 🎯 Generate detailed lesson plans using AI
@@ -32,8 +42,8 @@ The **AI Lesson Plan Generator** is a web-based tool designed to assist educator
 1. Enter the lesson **topic**, **grade level**, and **duration**.
 2. Click **"Generate Plan"**.
 3. The app sends a structured prompt to the Gemini API.
-4. The AI responds with a JSON-based lesson plan.
-5. The result is rendered beautifully on-screen using HTML and Tailwind CSS.
+4. The AI responds with a well articulated lesson plan.
+5. The result is generated promptly on-screen using HTML and Tailwind CSS.
 
 ---
 
@@ -41,11 +51,6 @@ The **AI Lesson Plan Generator** is a web-based tool designed to assist educator
 
 - **Frontend**: HTML, Tailwind CSS, JavaScript (Vanilla)
 - **AI Backend**: [Google Gemini API](https://ai.google.dev/)
-- **Build Tool**: [ESM.sh](https://esm.sh) for module import
 - **Deployment**: [Netlify](https://netlify.app/)
 
 ---
-
-## 📦 Project Structure
-
-

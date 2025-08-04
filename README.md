@@ -16,7 +16,7 @@ The **AI Lesson Plan Generator** is a web-based tool designed to assist educator
 Curious to see how it works before trying it yourself?
 
 🎬 **Watch the full demo:**  
-[![Watch the Demo](https://img.youtube.com/vi/uXghkcwItMk.jpg)](https://youtu.be/uXghkcwItMk)
+[![Watch the Demo](https://youtu.be/uXghkcwItMk)
 
 > This video walks through how to generate a lesson plan, explains the AI logic, and showcases sample results.
 
